@@ -6,7 +6,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
-  Implement [sendDelayedUsingJobJoin] function, which should do the same thing as [blockingSendDelayedMessage], but since it's a
-  suspending function you're allowed to use [Job.join].
+Implement [sendDelayedUsingJobJoin] function, which should do the same thing as [blockingSendDelayedMessage], but since it's a
+suspending function you're allowed to use [Job.join].
  */
-suspend fun sendDelayedUsingJobJoin(msg: String): Unit = TODO()
+suspend fun sendDelayedUsingJobJoin(msg: String): Unit =
+        GlobalScope.launch {
+            delay(2_000)
+            sendMessage(msg)
+        }.join()
